@@ -32,6 +32,15 @@ class Lecturer(Mentor):
         super().__init__(name, surname)
         self.course_grades = {}
 
+    def calculation_grades(self):
+        values = self.course_grades['Python']
+        sum_lst = sum(values)
+        midle_grades = sum_lst / len(values)
+        return midle_grades
+
+
+
+
 
 class Reviewer(Mentor):
     def __init__(self,name,surname):
@@ -55,19 +64,20 @@ student_best.courses_in_progress += ['Python']
 cool_lecturer = Lecturer('Mike', 'Vazovski')
 cool_lecturer.courses_attached += ['Python']
 
-student_best.rate(cool_lecturer, 'Python', 9)
-student_best.rate(cool_lecturer, 'Python', 9)
+student_best.rate(cool_lecturer, 'Python', 10)
+student_best.rate(cool_lecturer, 'Python', 8)
 student_best.rate(cool_lecturer, 'Python', 9)
 
 
 rate_reviewer = Reviewer('Jimi', 'Acha-Acha')
 rate_reviewer.courses_attached += ['Python']
 
-rate_reviewer.rate_hw(student_best, 'Python', 10)
-rate_reviewer.rate_hw(student_best, 'Python', 10)
+rate_reviewer.rate_hw(student_best, 'Python', 7)
+rate_reviewer.rate_hw(student_best, 'Python', 9)
 rate_reviewer.rate_hw(student_best, 'Python', 10)
 
 print(student_best.grades)
 print(cool_lecturer.course_grades)
+print(cool_lecturer.calculation_grades())
 
 
