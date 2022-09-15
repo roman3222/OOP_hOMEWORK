@@ -20,13 +20,15 @@ class Student:
     def counting_grades(self):
         lst_grades = self.grades['Python']
         amount_lst = sum(lst_grades)
-        self.average_rating = amount_lst / len(lst_grades)
-        self.average = round(self.average_rating, 2)
-        return self.average
+        average_rating = amount_lst / len(lst_grades)
+        average = round(average_rating, 2)
+        return average
 
     def __str__(self):
-        some_student = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашнее задание: {self.average}\n' \
-                            f'Курсы в процессе изучения: {",".join(self.courses_in_progress)}\nЗавершенные курсы: {" ".join(self.finished_courses)}'
+        some_student = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашнее задание: ' \
+                       f'{student_best.counting_grades()}\n' \
+                       f'Курсы в процессе изучения: {",".join(self.courses_in_progress)}\nЗавершенные курсы: ' \
+                       f'{" ".join(self.finished_courses)}'
         return some_student
 
 
@@ -46,11 +48,12 @@ class Lecturer(Mentor):
     def calculation_grades(self):
         values = self.course_grades['Python']
         sum_lst = sum(values)
-        self.midle_grade = sum_lst / len(values)
-        return self.midle_grade
+        midle_grade = sum_lst / len(values)
+        return midle_grade
 
     def __str__(self):
-        self.some_lecturer = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {self.midle_grade}'
+        self.some_lecturer = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: ' \
+                             f'{cool_lecturer.calculation_grades()}'
         return self.some_lecturer
 
 
@@ -94,5 +97,9 @@ some_reviewer.rate_hw(student_best, 'Python', 10)
 
 
 
-
+print('Student:')
 print(student_best.__str__())
+print('Lecturer:')
+print(cool_lecturer.__str__())
+print('Reviewer:')
+print(some_reviewer.__str__())
