@@ -18,11 +18,11 @@ class Student:
             return 'Ошибка'
 
     def __counting_grades(self):
-        lst_grades = self.grades['Python']
-        amount_lst = sum(lst_grades)
-        average_rating = amount_lst / len(lst_grades)
-        average = round(average_rating, 1)
-        return average
+        self.lst_grades = self.grades['Python']
+        self.amount_lst = sum(self.lst_grades)
+        self.average_rating = self.amount_lst / len(self.lst_grades)
+        self.average = round(self.average_rating, 1)
+        return self.average
 
 
     def __lt__(self, other):
@@ -34,7 +34,7 @@ class Student:
 
     def __str__(self):
         some_student = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашнее задание: ' \
-                       f'{student_best.__counting_grades()}\n' \
+                       f'{self.__counting_grades()}\n' \
                        f'Курсы в процессе изучения: {",".join(self.courses_in_progress)}\nЗавершенные курсы: ' \
                        f'{" ".join(self.finished_courses)}'
         return some_student
@@ -54,10 +54,11 @@ class Lecturer(Mentor):
         self.course_grades = {}
 
     def __calculation_grades(self):
-        values = self.course_grades['Python']
-        sum_lst = sum(values)
-        midle_grade = sum_lst / len(values)
-        return midle_grade
+        self.values = self.course_grades['Python']
+        self.sum_lst = sum(self.values)
+        self.midle_grade = self.sum_lst / len(self.values)
+        self.midles_grades = round(self.midle_grade, 1)
+        return self.midles_grades
 
 
     def __lt__(self, other):
@@ -68,7 +69,7 @@ class Lecturer(Mentor):
 
     def __str__(self):
         self.some_lecturer = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: ' \
-                             f'{cool_lecturer.__calculation_grades()}'
+                             f'{self.__calculation_grades()}'
         return self.some_lecturer
 
 
@@ -121,7 +122,7 @@ some_reviewer.rate_hw(student_best, 'Python', 7)
 some_reviewer.rate_hw(student_best, 'Python', 9)
 some_reviewer.rate_hw(student_best, 'Python', 10)
 
-some_reviewer.rate_hw(student_2, 'Python', 6)
+some_reviewer.rate_hw(student_2, 'Python', 5)
 some_reviewer.rate_hw(student_2, 'Python', 9)
 some_reviewer.rate_hw(student_2, 'Python', 10)
 
@@ -132,8 +133,10 @@ some_reviewer.rate_hw(student_2, 'Python', 10)
 
 print('Student:')
 print(student_best.__str__())
+print(student_2.__str__())
 print('Lecturer:')
 print(cool_lecturer.__str__())
+print(lecturer_2.__str__())
 print('Reviewer:')
 print(some_reviewer.__str__())
 print(f'Средняя оценка   John Salivan больше чем у  Linda Mazovski ?: {student_best.__lt__(student_2)}')
