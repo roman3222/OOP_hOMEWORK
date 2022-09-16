@@ -118,6 +118,10 @@ student_2.rate(lecturer_2, 'Python', 5)
 some_reviewer = Reviewer('Jimi', 'Acha-Acha')
 some_reviewer.courses_attached += ['Python']
 
+reviewer_2 = Reviewer('Jeronimo', 'Junior')
+reviewer_2.courses_attached += ['Python']
+
+
 some_reviewer.rate_hw(student_best, 'Python', 7)
 some_reviewer.rate_hw(student_best, 'Python', 9)
 some_reviewer.rate_hw(student_best, 'Python', 10)
@@ -139,6 +143,7 @@ print(cool_lecturer.__str__())
 print(lecturer_2.__str__())
 print('Reviewer:')
 print(some_reviewer.__str__())
+print(reviewer_2.__str__())
 print(f'Средняя оценка   John Salivan больше чем у  Linda Mazovski ?: {student_best.__lt__(student_2)}')
 print(f'Средняя оценка у лектора Mike Vazovski меньше чем у Denzel Washington ?: {cool_lecturer.__lt__(lecturer_2)}')
 
