@@ -22,10 +22,6 @@ class Student:
         return round(grades_py_git, 1)
 
 
-
-
-
-
     def __lt__(self, other):
         if not isinstance(other, Student):
             print('Not a Student')
@@ -46,7 +42,6 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
-
 
 
 class Lecturer(Mentor):
@@ -144,13 +139,28 @@ some_reviewer.rate_hw(student_2, 'Git', 9)
 some_reviewer.rate_hw(student_2, 'Git', 9)
 some_reviewer.rate_hw(student_2, 'Git', 9)
 
+all_student = [student_best, student_2]
+all_lecturer = [cool_lecturer, lecturer_2]
+def counter_average_grades(student, course):
+    grade_lst = []
+    for student in all_student:
+        if course in student.grades:
+            grade_lst += student.grades[course]
+        else:
+            return 'Ошибка'
+        result_grades = sum(grade_lst) / len(grade_lst)
+    return round(result_grades, 1)
 
 
-
-
-
-
-
+def calculation_average(lecturer, course):
+    lst_grade = []
+    for lecturer in all_lecturer:
+        if course in lecturer.course_grades:
+            lst_grade += lecturer.course_grades[course]
+        else:
+            return 'Commit mistake'
+        result = sum(lst_grade) / len(lst_grade)
+    return round(result, 1)
 
 
 
@@ -165,6 +175,10 @@ print(some_reviewer.__str__())
 print(reviewer_2.__str__())
 print(f'Средняя оценка   John Salivan больше чем у  Linda Mazovski ?: {student_best.__lt__(student_2)}')
 print(f'Средняя оценка у лектора Mike Vazovski меньше чем у Denzel Washington ?: {cool_lecturer.__lt__(lecturer_2)}')
-print(len(student_best.grades))
+print(f"Средний бал среди студентов по курсу Python: {counter_average_grades(all_student, 'Python')}")
+print(f"Средний бал среди студентов по курсу Git: {counter_average_grades(all_student, 'Git')}")
+print(f"Средний бал среди лекторов за лекцию  Python: {calculation_average(all_lecturer, 'Python')}")
+print(f"Средний бал среди лекторов за лекцию  Git: {calculation_average(all_lecturer, 'Git')}")
+
 
 
