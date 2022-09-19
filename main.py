@@ -1,15 +1,13 @@
 class Student:
-    def __init__(self, name, surname, gender):
+    def __init__(self, name, surname):
         self.name = name
         self.surname = surname
-        self.gender = gender
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
 
     def rate(self, lecturer, course, grade):
-        if isinstance(lecturer,
-                      Lecturer) and course in self.courses_in_progress and course in lecturer.courses_attached:
+        if isinstance(lecturer, Lecturer) and course in self.courses_in_progress and course in lecturer.courses_attached:
             if course in lecturer.course_grades:
                 lecturer.course_grades[course] += [grade]
             else:
@@ -18,11 +16,14 @@ class Student:
             return 'Ошибка'
 
     def __counting_grades(self):
-        self.lst_grades = self.grades['Python']
-        self.amount_lst = sum(self.lst_grades)
-        self.average_rating = self.amount_lst / len(self.lst_grades)
-        self.average = round(self.average_rating, 1)
-        return self.average
+        mid_grades_py = sum(self.grades['Python']) / len(self.grades['Python'])
+        mid_grades_git = sum(self.grades['Git']) / len(self.grades['Git'])
+        grades_py_git = (mid_grades_py + mid_grades_git) / len(self.grades)
+        return round(grades_py_git, 1)
+
+
+
+
 
 
     def __lt__(self, other):
@@ -54,11 +55,10 @@ class Lecturer(Mentor):
         self.course_grades = {}
 
     def __calculation_grades(self):
-        self.values = self.course_grades['Python']
-        self.sum_lst = sum(self.values)
-        self.midle_grade = self.sum_lst / len(self.values)
-        self.midles_grades = round(self.midle_grade, 1)
-        return self.midles_grades
+        midle_grades_py = sum(self.course_grades['Python']) / len(self.course_grades['Python'])
+        midle_grades_git = sum(self.course_grades['Git']) / len(self.course_grades['Git'])
+        midle_grades_py_git = (midle_grades_py + midle_grades_git) / len(self.course_grades)
+        return round(midle_grades_py_git, 1)
 
 
     def __lt__(self, other):
@@ -92,43 +92,62 @@ class Reviewer(Mentor):
         return self.some_reviever
 
 
-student_best = Student('John', 'Salivan', 'Male')
+
+student_best = Student('John', 'Salivan')
 student_best.courses_in_progress += ['Python', 'Git']
 student_best.finished_courses += ['Files']
 
-student_2 = Student('Linda', 'Mazovski', 'Female')
+student_2 = Student('Linda', 'Mazovski')
 student_2.courses_in_progress += ['Python', 'Git']
 student_2.finished_courses += ['Files']
 
 cool_lecturer = Lecturer('Mike', 'Vazovski')
-cool_lecturer.courses_attached += ['Python']
+cool_lecturer.courses_attached += ['Python', 'Git']
 
 lecturer_2 = Lecturer('Denzel', 'Washington')
-lecturer_2.courses_attached += ['Python']
+lecturer_2.courses_attached += ['Python', 'Git']
 
 student_best.rate(cool_lecturer, 'Python', 10)
 student_best.rate(cool_lecturer, 'Python', 8)
 student_best.rate(cool_lecturer, 'Python', 9)
+student_best.rate(cool_lecturer, 'Git', 8)
+student_best.rate(cool_lecturer, 'Git', 7)
+student_best.rate(cool_lecturer, 'Git', 9)
 
 student_2.rate(lecturer_2, 'Python', 8)
 student_2.rate(lecturer_2, 'Python', 7)
 student_2.rate(lecturer_2, 'Python', 5)
+student_2.rate(lecturer_2, 'Git', 9)
+student_2.rate(lecturer_2, 'Git', 7)
+student_2.rate(lecturer_2, 'Git', 7)
 
 
 some_reviewer = Reviewer('Jimi', 'Acha-Acha')
-some_reviewer.courses_attached += ['Python']
+some_reviewer.courses_attached += ['Python', 'Git']
 
 reviewer_2 = Reviewer('Jeronimo', 'Junior')
-reviewer_2.courses_attached += ['Python']
+reviewer_2.courses_attached += ['Python', 'Git']
 
 
 some_reviewer.rate_hw(student_best, 'Python', 7)
 some_reviewer.rate_hw(student_best, 'Python', 9)
 some_reviewer.rate_hw(student_best, 'Python', 10)
+some_reviewer.rate_hw(student_best, 'Git', 10)
+some_reviewer.rate_hw(student_best, 'Git', 7)
+some_reviewer.rate_hw(student_best, 'Git', 10)
+
 
 some_reviewer.rate_hw(student_2, 'Python', 5)
 some_reviewer.rate_hw(student_2, 'Python', 9)
 some_reviewer.rate_hw(student_2, 'Python', 10)
+some_reviewer.rate_hw(student_2, 'Git', 9)
+some_reviewer.rate_hw(student_2, 'Git', 9)
+some_reviewer.rate_hw(student_2, 'Git', 9)
+
+
+
+
+
 
 
 
@@ -146,5 +165,6 @@ print(some_reviewer.__str__())
 print(reviewer_2.__str__())
 print(f'Средняя оценка   John Salivan больше чем у  Linda Mazovski ?: {student_best.__lt__(student_2)}')
 print(f'Средняя оценка у лектора Mike Vazovski меньше чем у Denzel Washington ?: {cool_lecturer.__lt__(lecturer_2)}')
+print(len(student_best.grades))
 
 
